@@ -1,6 +1,6 @@
     <a href="/">Home</a>
     {% for item in recipes %}
-        <h2>{{item.title}} (Author: <a href="{{item.author.name}}">{{item.author.name}}</a>)</h2>
+        <h2>{{item.title}} (Author: <a href="{% url 'author' item.author.name %}">{{item.author.name}}</a>)</h2>
         <h3>{{item.description}}</h3>
         <h4>{{item.timeRequired}}</h4>
         <p>{{item.instructions}}</p>
