@@ -18,6 +18,7 @@ from django.urls import path
 from RecipeBox.views import index
 from RecipeBox.models import Author,Recipe
 from . import views
+from django.contrib.auth import views as auth_views #distinguish views
 admin.site.register(Author)
 admin.site.register(Recipe)
 
@@ -28,4 +29,9 @@ urlpatterns = [
     path('author/<str:author>/', views.author, name='author'),
     path('addauthor/',views.addAuthor,name='addAuthor'),
     path('addrecipe/',views.addRecipe,name='addRecipe'),
+    # path('adduser/',views.addUser,name='addUser'),
+    path('register',views.register,name='register'),
+    path('login', auth_views.LoginView.as_view(template_name='login.html'),name='login'),
+    path('logout', auth_views.LogoutView.as_view(template_name='logout.html'),name='logout'),
+    
 ]

@@ -4,6 +4,7 @@
         <a href="{% url 'addRecipe'%}">Add Recipe |</a>
         <!-- <a href="{% url 'addAuthor'%}">Add Author |</a> -->
         {% if user.is_staff %}
+        <!-- <a href="{% url 'addUser'%}">Add User |</a> -->
         <a href="{% url 'addAuthor'%}">Add Author |</a>
         {% endif %}
         <a href="{% url 'logout'%}">Logout |</a>
@@ -14,8 +15,11 @@
     {% endif %}
 </div>
 
+
+<div><h3>Join Today</h3></div>
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Submit">
+    <input type="submit" value="Register">
 </form>
+<div><h4>Already have an account? <a href="{% url 'login' %}">Login here</a></h4></div>
