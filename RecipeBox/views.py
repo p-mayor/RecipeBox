@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect,reverse
+from django.shortcuts import render, HttpResponseRedirect,reverse, get_object_or_404
 from RecipeBox.models import Author, Recipe
 from RecipeBox.forms import AuthorForm, RecipeForm
 from django.contrib.auth.forms import UserCreationForm
@@ -69,28 +69,14 @@ def addRecipe(request,*args,**kwargs):
     
     return render(request,"addRecipe.html",{'form':form})
 
-
-# @staff_member_required
-# def addUser(request,*args,**kwargs):
-#     if request.method == 'POST':
-#         # create a form instance and populate it with data from the request:
-#         form = UserForm(request.POST)
-#         # check whether it's valid:
-#         if form.is_valid():
-#             # process the data in form.cleaned_data as required
-#             data = form.cleaned_data
-#             User.objects.create_user(
-#                 username = data['username'],
-#                 password = data['password'],
-#             )
-#             # redirect to a new URL:
-#             return HttpResponseRedirect(reverse('homepage'))
-
-#     # if a GET (or any other method) we'll create a blank form
-#     else:
-#         form = UserForm()
-    
-#     return render(request,"addUser.html",{'form':form})
+@login_required
+def edit_recipe(request, recipe_id): 
+    instance = get_object_or_404(Recipe, id=recipe_id)
+    form = RecipeForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('homepage'))
+    return render(request,"addRecipe.html",{'form':form})
 
 
 def register(request):

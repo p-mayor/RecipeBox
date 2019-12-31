@@ -2,9 +2,7 @@
     {% if user.is_authenticated %}
         <a href="{% url 'homepage'%}">Home |</a>
         <a href="{% url 'addRecipe'%}">Add Recipe |</a>
-        <!-- <a href="{% url 'addAuthor'%}">Add Author |</a> -->
         {% if user.is_staff %}
-        <!-- <a href="{% url 'addUser'%}">Add User |</a> -->
         <a href="{% url 'addAuthor'%}">Add Author |</a>
         {% endif %}
         <a href="{% url 'logout'%}">Logout |</a>
@@ -17,8 +15,8 @@
     
     
     
-    <a href="/">Home</a>
-    {% for item in recipes %}
+{% for item in recipes %}
+<a href="{% url 'edit_recipe' item.id%}">Edit this recipe</a>
         <h2>{{item.title}} (Author: <a href="{% url 'author' item.author.name %}">{{item.author.name}}</a>)</h2>
         <h3>{{item.description}}</h3>
         <h4>{{item.timeRequired}}</h4>
